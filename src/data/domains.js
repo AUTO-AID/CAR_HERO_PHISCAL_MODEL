@@ -1,9 +1,9 @@
 export const domainStyles = {
   subscription: {
     label: "اشتراكات",
-    color: "#f59e0b",
-    soft: "rgba(245, 158, 11, 0.14)",
-    glow: "rgba(245, 158, 11, 0.28)",
+    color: "#ea580c",
+    soft: "rgba(234, 88, 12, 0.14)",
+    glow: "rgba(234, 88, 12, 0.28)",
   },
   order: {
     label: "طلبات",
@@ -37,15 +37,21 @@ export const domainStyles = {
   },
   vehicle: {
     label: "سيارات",
-    color: "#2dd4bf",
-    soft: "rgba(45, 212, 191, 0.14)",
-    glow: "rgba(45, 212, 191, 0.28)",
+    color: "#ec4899",
+    soft: "rgba(236, 72, 153, 0.14)",
+    glow: "rgba(236, 72, 153, 0.28)",
   },
   platform: {
     label: "النظام",
     color: "#ff3b3b",
     soft: "rgba(255, 59, 59, 0.14)",
     glow: "rgba(255, 59, 59, 0.28)",
+  },
+  ai: {
+    label: "الذكاء الاصطناعي",
+    color: "#facc15",
+    soft: "rgba(250, 204, 21, 0.14)",
+    glow: "rgba(250, 204, 21, 0.28)",
   },
 };
 
@@ -58,16 +64,14 @@ export const domainLegend = [
   "provider",
   "quality",
   "vehicle",
+  "ai",
 ].map((domain) => ({ domain, ...domainStyles[domain] }));
 
 const collectionDomains = {
   subscription_plans: "subscription",
   user_subscriptions: "subscription",
-  subscriptions: "subscription",
-  promocodes: "subscription",
-
-  bookingdocuments: "order",
   orders: "order",
+  status_histories: "order",
   services: "order",
 
   wallets: "finance",
@@ -83,6 +87,9 @@ const collectionDomains = {
   maintenancerecords: "vehicle",
   vehiclereminders: "vehicle",
   providers: "provider",
+  audit_logs: "platform",
+  provider_metrics: "ai",
+  ai_recommendation_logs: "ai",
 };
 
 const relationDomains = {
@@ -93,6 +100,7 @@ const relationDomains = {
   quality: "quality",
   vehicle: "vehicle",
   provider: "provider",
+  ai: "ai",
 };
 
 export function getCollectionDomain(collection) {

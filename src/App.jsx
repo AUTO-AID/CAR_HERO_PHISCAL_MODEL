@@ -17,6 +17,17 @@ import {
   toFields,
 } from "./utils/schema";
 
+const collectionDomainOrder = {
+  platform: 0,
+  order: 1,
+  communication: 2,
+  vehicle: 3,
+  subscription: 4,
+  finance: 5,
+  quality: 6,
+  provider: 7,
+};
+
 export default function App() {
   const [search, setSearch] = React.useState("");
   const [feature, setFeature] = React.useState("All");
@@ -48,6 +59,15 @@ export default function App() {
     const matchesStatus = showSchemaOnly || item.status !== "schema-only";
 
     return matchesSearch && matchesFeature && matchesStatus;
+  }).sort((a, b) => {
+    const domainA = getCollectionDomain(a.collection);
+    const domainB = getCollectionDomain(b.collection);
+    const orderA = collectionDomainOrder[domainA] ?? 99;
+    const orderB = collectionDomainOrder[domainB] ?? 99;
+
+    if (orderA !== orderB) return orderA - orderB;
+    return normalized.findIndex((item) => item.collection === a.collection)
+      - normalized.findIndex((item) => item.collection === b.collection);
   });
 
   const activeCount = normalized.filter((item) => item.status === "active").length;

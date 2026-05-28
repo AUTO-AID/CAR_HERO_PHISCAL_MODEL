@@ -20,7 +20,6 @@ const arabicNames = {
   vehicles: "السيارات",
   maintenancerecords: "سجلات الصيانة",
   vehiclereminders: "تذكيرات السيارات",
-  bookingdocuments: "الحجوزات",
   orders: "الطلبات",
   wallets: "المحافظ",
   transactions: "المعاملات",
@@ -33,7 +32,6 @@ const arabicNames = {
   settings: "الاعدادات",
   pending_registrations: "التسجيلات المؤقتة",
   logouts: "تسجيلات الخروج",
-  promocodes: "اكواد الخصم",
   system: "النظام",
 };
 
@@ -133,7 +131,7 @@ function EndpointCard({ endpoint }) {
 
 export default function EndpointsSection() {
   const [query, setQuery] = React.useState("");
-  const [openGroup, setOpenGroup] = React.useState("users");
+  const [openGroup, setOpenGroup] = React.useState("");
   const normalizedQuery = query.trim().toLowerCase();
   const groups = React.useMemo(() => buildGroups(normalizedQuery), [normalizedQuery]);
   const visibleCount = groups.reduce((sum, group) => sum + group.endpoints.length, 0);
@@ -208,7 +206,7 @@ export default function EndpointsSection() {
               {isOpen && (
                 <div className="grid gap-3 border-t border-[#a57ed8]/10 bg-[#0d0815]/25 p-4">
                   {group.endpoints.length ? (
-                    group.endpoints.map((endpoint) => <EndpointCard key={`${group.name}-${endpoint.id}`} endpoint={endpoint} />)
+                    group.endpoints.map((endpoint, index) => <EndpointCard key={`${group.name}-${endpoint.id}-${index}`} endpoint={endpoint} />)
                   ) : (
                     <div className="rounded-lg border border-[#a57ed8]/15 bg-[#0d0815] p-4 text-sm text-[#cbd5e1]/65">
                       لا يوجد endpoints مطابقة للبحث داخل هذا الجدول.
