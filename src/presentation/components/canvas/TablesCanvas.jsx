@@ -10,11 +10,11 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import { jsPDF } from "jspdf";
 import { ChevronDown, ChevronUp, ChevronsDownUp, ChevronsUpDown, Crosshair, Database, Download, Filter, Hand, Link2, Maximize2, Minimize2, Move, Network, Route, RotateCcw, Search as SearchIcon, TableProperties, X } from "lucide-react";
-import { domainLegend, getCollectionDomain, getDomainStyle, getRelationDomain } from "../../data/domains";
-import { backendEndpoints } from "../../data/endpoints";
-import { diagramPositions, diagramRelations, edgeColors, relationships } from "../../data/relationships";
-import { downloadFile, getHighResImage } from "../../utils/exportDiagram";
-import { cleanType, collectionNote, collectionPurpose, fieldDescription, relationDescription } from "../../utils/schema";
+import { domainLegend, getCollectionDomain, getDomainStyle, getRelationDomain } from "@/domain/entities/domains";
+import { backendEndpoints } from "@/domain/entities/endpoints";
+import { diagramPositions, diagramRelations, edgeColors, relationships } from "@/domain/entities/relationships";
+import { downloadFile, getHighResImage } from "@/infrastructure/services/export.service";
+import { cleanType, collectionNote, collectionPurpose, fieldDescription, relationDescription } from "@/infrastructure/services/schema.service";
 import TableNode from "./TableNode";
 
 const nodeTypes = {

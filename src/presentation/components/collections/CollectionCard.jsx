@@ -1,14 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Database } from "lucide-react";
-import { getCollectionDomain, getDomainStyle } from "../../data/domains";
-import { featureArabic } from "../../data/translations";
+import { getCollectionDomain, getDomainStyle } from "@/domain/entities/domains";
+import { featureArabic } from "@/domain/entities/translations";
 import {
   cleanType,
   collectionNote,
   collectionPurpose,
   fieldDescription,
-} from "../../utils/schema";
-import Badge from "../ui/Badge";
+} from "@/infrastructure/services/schema.service";
+import Badge from "@/presentation/components/ui/Badge";
 import { iconMap } from "./icons";
 
 export default function CollectionCard({ item, index, expanded, onToggle }) {

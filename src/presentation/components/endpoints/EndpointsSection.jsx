@@ -1,8 +1,7 @@
 import React from "react";
 import { ChevronDown, KeyRound, Link2, Search, Server } from "lucide-react";
-import { backendEndpoints } from "../../data/endpoints";
-import { collections } from "../../data/collections";
-import { getCollectionDomain, getDomainStyle } from "../../data/domains";
+import { useDiagram } from "@/application/contexts/DiagramContext";
+import { getCollectionDomain, getDomainStyle } from "@/domain/entities/domains";
 
 const methodClasses = {
   GET: "border-emerald-400/30 bg-emerald-400/10 text-emerald-200",
@@ -52,17 +51,17 @@ function endpointMatches(endpoint, query) {
   return text.includes(query);
 }
 
-function buildGroups(query) {
-  const collectionNames = Array.from(new Set(collections.map((item) => item.collection)));
-  const endpointCollections = Array.from(new Set(backendEndpoints.flatMap((endpoint) => endpoint.collections)));
+function buildGroups(query, activeCollections, activeEndpoints) {
+  const collectionNames = Array.from(new Set(activeCollections.map((item) => item.collection)));
+  const endpointCollections = Array.from(new Set(activeEndpoints.flatMap((endpoint) => endpoint.collections)));
   const names = Array.from(new Set([...collectionNames, ...endpointCollections])).sort();
 
   return names
     .map((name) => {
-      const endpoints = backendEndpoints.filter(
+      const endpoints = activeEndpoints.filter(
         (endpoint) => endpoint.collections.includes(name) && endpointMatches(endpoint, query)
       );
-      const total = backendEndpoints.filter((endpoint) => endpoint.collections.includes(name)).length;
+      const total = activeEndpoints.filter((endpoint) => endpoint.collections.includes(name)).length;
       return { name, endpoints, total };
     })
     .filter((group) => group.total > 0);
@@ -130,10 +129,11 @@ function EndpointCard({ endpoint }) {
 }
 
 export default function EndpointsSection() {
+  const { activeCollections, activeEndpoints } = useDiagram();
   const [query, setQuery] = React.useState("");
   const [openGroup, setOpenGroup] = React.useState("");
   const normalizedQuery = query.trim().toLowerCase();
-  const groups = React.useMemo(() => buildGroups(normalizedQuery), [normalizedQuery]);
+  const groups = React.useMemo(() => buildGroups(normalizedQuery, activeCollections, activeEndpoints), [normalizedQuery, activeCollections, activeEndpoints]);
   const visibleCount = groups.reduce((sum, group) => sum + group.endpoints.length, 0);
 
   return (
@@ -164,7 +164,7 @@ export default function EndpointsSection() {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2 text-xs text-[#cbd5e1]/70">
-          <span className="rounded bg-[#a57ed8]/10 px-2 py-1">{backendEndpoints.length} endpoints اجمالي</span>
+          <span className="rounded bg-[#a57ed8]/10 px-2 py-1">{activeEndpoints.length} endpoints اجمالي</span>
           <span className="rounded bg-[#a57ed8]/10 px-2 py-1">{visibleCount} ظاهرة حاليا</span>
           <span className="inline-flex items-center gap-1 rounded bg-[#a57ed8]/10 px-2 py-1">
             <KeyRound className="h-3.5 w-3.5" />

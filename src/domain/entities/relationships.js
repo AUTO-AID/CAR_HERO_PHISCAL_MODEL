@@ -29,6 +29,12 @@ export const relationships = [
   ["users", "ai_recommendation_logs", "AiRecommendationLog.user", "A user can trigger recommendation requests that are logged."],
   ["providers", "provider_metrics", "ProviderMetrics.provider", "A provider has a detailed metrics document for scoring."],
   ["providers", "ai_recommendation_logs", "AiRecommendationLog.recommendations.provider", "Recommendation logs store which providers were recommended to users."],
+  ["users", "user_addresses", "UserAddress.userId", "Users have saved addresses for quick booking."],
+  ["users", "user_payment_methods", "UserPaymentMethod.userId", "Users have saved payment methods."],
+  ["users", "offers", "OfferRedemption.userId + offerId", "Users can redeem promotional offers."],
+  ["users", "wash_plans", "WashPlan.userId", "Users can subscribe to recurring wash plans for their vehicles."],
+  ["vehicles", "wash_plans", "WashPlan.vehicleId", "Wash plans are applied to specific vehicles."],
+  ["users", "user_devices", "UserDevice.userId", "Users have registered devices for push notifications."],
 ];
 
 export const diagramRelations = [
@@ -54,6 +60,12 @@ export const diagramRelations = [
   ["providers", "provider_metrics", "metrics", "ai"],
   ["users", "ai_recommendation_logs", "requests", "ai"],
   ["providers", "ai_recommendation_logs", "logged in", "ai"],
+  ["users", "user_addresses", "addresses", "order"],
+  ["users", "user_payment_methods", "payments", "finance"],
+  ["users", "offers", "redeems", "finance"],
+  ["users", "wash_plans", "subscribes", "subscription"],
+  ["vehicles", "wash_plans", "receives", "subscription"],
+  ["users", "user_devices", "devices", "communication"],
 ];
 
 export const diagramPositions = {
@@ -91,6 +103,14 @@ export const diagramPositions = {
   pending_registrations: { x: 2250, y: 0 },
   provider_metrics: { x: 2250, y: 560 },
   ai_recommendation_logs: { x: 2250, y: 1120 },
+
+  // Column 7: Customer Experience
+  user_addresses: { x: 0, y: 2240 },
+  user_payment_methods: { x: 450, y: 1680 },
+  offers: { x: 450, y: 2240 },
+  offer_redemptions: { x: 450, y: 2800 },
+  wash_plans: { x: 900, y: 2240 },
+  user_devices: { x: 1350, y: 2240 },
 };
 
 export const edgeColors = {

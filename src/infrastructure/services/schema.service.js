@@ -1,10 +1,10 @@
-import { collections } from "../data/collections";
+import { collections } from "@/domain/entities/collections";
 import {
   collectionNotesAr,
   collectionPurposeAr,
   fieldArabic,
   relationshipArabic,
-} from "../data/translations";
+} from "@/domain/entities/translations";
 
 export const featureLabels = [
   "All",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Handle, Position } from "reactflow";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { cleanType } from "../../utils/schema";
+import { cleanType } from "@/infrastructure/services/schema.service";
 
 const INITIAL_COUNT = 7;
 
