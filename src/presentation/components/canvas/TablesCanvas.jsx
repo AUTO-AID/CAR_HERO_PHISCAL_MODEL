@@ -777,10 +777,8 @@ export default function TablesCanvas({ items }) {
         {isFullscreen && (
           <div className="fixed left-1/2 top-6 z-[60] flex -translate-x-1/2 items-center gap-2 rounded-full border border-[#a57ed8]/30 bg-[#0d0815]/85 p-1.5 shadow-[0_24px_64px_rgba(0,0,0,0.45)] backdrop-blur-xl">
             <div className="flex items-center gap-1 border-r border-[#a57ed8]/20 pr-1 mr-1">
-               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#a57ed8]/10 text-[#c9a7e3]">
-                  <Database className="h-4 w-4" />
-               </div>
-               <span className="px-2 text-xs font-bold text-white whitespace-nowrap">Car Hero Model</span>
+               <img src="/logo_carHero.png" alt="Car Hero" className="h-7 w-24 object-contain" />
+               <span className="px-2 text-xs font-bold text-white whitespace-nowrap">Physical Model</span>
             </div>
 
             <div className="relative px-1">

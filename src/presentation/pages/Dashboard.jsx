@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, Database, Filter, Layers, Link2, Search } from "lucide-react";
+import { ArrowRight, Filter, Layers, Link2, Search } from "lucide-react";
 import { useDiagram } from "@/application/contexts/DiagramContext";
 import TablesCanvas from "@/presentation/components/canvas/TablesCanvas";
 import CollectionsList from "@/presentation/components/collections/CollectionsList";
@@ -37,9 +37,11 @@ export default function Dashboard() {
       <section className="sticky top-0 z-40 border-b border-[#a57ed8]/20 bg-[#0d0815]/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-5 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-[#a57ed8]/30 bg-[#a57ed8]/10 shadow-[0_8px_24px_rgba(165,126,216,0.18)]">
-              <Database className="h-6 w-6 text-[#c9a7e3]" />
-            </div>
+            <img
+              src="/logo_carHero.png"
+              alt="Car Hero"
+              className="h-14 w-36 shrink-0 object-contain drop-shadow-[0_8px_24px_rgba(165,126,216,0.3)]"
+            />
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-2xl font-bold tracking-normal text-white md:text-3xl">
