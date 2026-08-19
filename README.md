@@ -1,16 +1,32 @@
-# React + Vite
+# Car Hero Physical Model
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Visual documentation app for the Car Hero backend data model and API surface.
 
-Currently, two official plugins are available:
+## What It Shows
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- MongoDB collections and relationships.
+- Backend endpoint coverage grouped by domain.
+- Live schema/API data when the backend is reachable.
+- Local fallback data for offline review.
+- Export tools for diagrams and documentation snapshots.
 
-## React Compiler
+## Commands
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run dev
+npm run build
+npm run preview
+npm run lint
+```
 
-## Expanding the ESLint configuration
+The dev server uses Vite on port `3003`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Structure
+
+- `src/domain/entities`: local model, endpoint, relationship, and translation data.
+- `src/infrastructure/services`: backend/schema fetching and export helpers.
+- `src/application/contexts`: diagram state and data normalization.
+- `src/presentation`: React pages, canvas, collections, endpoint views, and styles.
+- `public`: static public assets, currently the Car Hero logo.
+
+Generated folders such as `dist`, logs, cache files, and starter Vite assets should stay out of the repository.

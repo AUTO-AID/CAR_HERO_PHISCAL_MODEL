@@ -1876,15 +1876,15 @@ export const backendEndpoints = [
     "line": 155
   },
   {
-    "id": "GET_api_v1_orders_orderId_status_history",
+    "id": "GET_api_v1_orders_id_status_history",
     "method": "GET",
-    "path": "/api/v1/orders/:orderId/status-history",
-    "route": "/orders/:orderId/status-history",
+    "path": "/api/v1/orders/:id/status-history",
+    "route": "/orders/:id/status-history",
     "summary": "Get status history for an order or scheduled booking",
-    "module": "status-history",
-    "controller": "StatusHistoryController",
-    "handler": "findForOrder",
-    "tag": "Status Histories",
+    "module": "orders",
+    "controller": "OrdersController",
+    "handler": "getStatusHistory",
+    "tag": "Orders",
     "auth": "JWT",
     "collections": [
       "orders",
@@ -1892,10 +1892,10 @@ export const backendEndpoints = [
     ],
     "body": null,
     "params": [
-      "orderId"
+      "id"
     ],
     "query": [],
-    "source": "src/modules/status-history/presentation/controllers/status-history.controller.ts"
+    "source": "src/modules/orders/presentation/controllers/orders.controller.ts"
   },
   {
     "id": "GET_api_v1_orders_report",

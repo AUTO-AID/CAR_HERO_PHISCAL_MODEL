@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowRight, Filter, Layers, Link2, Search } from "lucide-react";
-import { useDiagram } from "@/application/contexts/DiagramContext";
+import { useDiagram } from "@/application/contexts/diagram-context";
 import TablesCanvas from "@/presentation/components/canvas/TablesCanvas";
 import CollectionsList from "@/presentation/components/collections/CollectionsList";
 import EndpointsSection from "@/presentation/components/endpoints/EndpointsSection";

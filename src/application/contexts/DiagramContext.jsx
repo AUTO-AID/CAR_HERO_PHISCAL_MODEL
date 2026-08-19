@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import { DiagramContext } from "@/application/contexts/diagram-context";
 import { collections } from "@/domain/entities/collections";
 import { relationships } from "@/domain/entities/relationships";
 import { backendEndpoints } from "@/domain/entities/endpoints";
@@ -10,8 +11,6 @@ import {
   toFields,
 } from "@/infrastructure/services/schema.service";
 import { fetchLiveSchemas, fetchLiveEndpoints } from "@/infrastructure/services/api.service";
-
-const DiagramContext = createContext(null);
 
 const collectionDomainOrder = {
   platform: 0,
@@ -166,12 +165,4 @@ export function DiagramProvider({ children }) {
   };
 
   return <DiagramContext.Provider value={value}>{children}</DiagramContext.Provider>;
-}
-
-export function useDiagram() {
-  const context = useContext(DiagramContext);
-  if (!context) {
-    throw new Error("useDiagram must be used within a DiagramProvider");
-  }
-  return context;
 }

@@ -57,6 +57,7 @@ export default function TablesCanvas({ items }) {
   const [canvasSearch, setCanvasSearch] = React.useState("");
   const [isSearchExpanded, setIsSearchExpanded] = React.useState(false);
   const [isAllExpanded, setIsAllExpanded] = React.useState(false);
+  const [nodeExpansionOverrides, setNodeExpansionOverrides] = React.useState({});
   const [activeDomainFilter, setActiveDomainFilter] = React.useState("all");
   const [isFilterOpen, setIsFilterOpen] = React.useState(false);
   const [detailSections, setDetailSections] = React.useState({
@@ -139,19 +140,26 @@ export default function TablesCanvas({ items }) {
   }, []);
 
   React.useEffect(() => {
-    if (selectedNodeId && !filteredNodeIds.has(selectedNodeId)) {
-      setSelectedNodeId("");
-      setFocusRelations(false);
-    }
-
-    window.setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       flowInstanceRef.current?.fitView({
         padding: 0.18,
         includeHiddenNodes: false,
         duration: 450,
       });
     }, 0);
-  }, [activeDomainFilter, filteredNodeIds, selectedNodeId]);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activeDomainFilter]);
+
+  const toggleNodeExpansion = React.useCallback(
+    (nodeId) => {
+      setNodeExpansionOverrides((current) => ({
+        ...current,
+        [nodeId]: !(current[nodeId] ?? isAllExpanded),
+      }));
+    },
+    [isAllExpanded]
+  );
 
   const focusedRelationIds = React.useMemo(() => {
     if (!selectedNodeId) return new Set();
@@ -190,11 +198,12 @@ export default function TablesCanvas({ items }) {
             ...node.data,
             isSelected: node.id === selectedNodeId,
             isDimmed: shouldDim,
-            isAllExpanded,
+            isExpanded: nodeExpansionOverrides[node.id] ?? isAllExpanded,
+            onToggleExpanded: toggleNodeExpansion,
           },
         };
       }),
-    [filteredNodeIds, focusRelations, focusedRelationIds, isAllExpanded, nodes, selectedNodeId]
+    [filteredNodeIds, focusRelations, focusedRelationIds, isAllExpanded, nodeExpansionOverrides, nodes, selectedNodeId, toggleNodeExpansion]
   );
 
   const edges = React.useMemo(
@@ -344,6 +353,27 @@ export default function TablesCanvas({ items }) {
     setSelectedNodeId("");
     setFocusRelations(false);
   };
+
+  const selectDomainFilter = React.useCallback(
+    (filterKey) => {
+      setActiveDomainFilter(filterKey);
+      setIsFilterOpen(false);
+
+      if (!selectedNodeId || filterKey === "all") return;
+
+      const selectedNode = initialNodes.find((node) => node.id === selectedNodeId);
+      if (selectedNode?.data?.domain !== filterKey) {
+        setSelectedNodeId("");
+        setFocusRelations(false);
+      }
+    },
+    [initialNodes, selectedNodeId]
+  );
+
+  const toggleAllNodeExpansion = React.useCallback(() => {
+    setNodeExpansionOverrides({});
+    setIsAllExpanded((value) => !value);
+  }, []);
 
   const resetLayout = () => {
     setNodes(initialNodes);
@@ -499,7 +529,7 @@ export default function TablesCanvas({ items }) {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setIsAllExpanded((v) => !v)}
+                  onClick={toggleAllNodeExpansion}
                   className={`inline-flex h-9 items-center justify-center gap-2 rounded-md border border-[#a57ed8]/30 bg-[#0d0815]/75 px-3 text-xs font-semibold text-[#f5f5f7] transition hover:bg-[#a57ed8]/18 ${isAllExpanded ? "border-[#d1b3ff]/50 bg-[#d1b3ff]/15" : ""}`}
                 >
                   {isAllExpanded ? <ChevronsDownUp className="h-4 w-4" /> : <ChevronsUpDown className="h-4 w-4" />}
@@ -809,8 +839,7 @@ export default function TablesCanvas({ items }) {
                         key={filter.key}
                         type="button"
                         onClick={() => {
-                          setActiveDomainFilter(filter.key);
-                          setIsFilterOpen(false);
+                          selectDomainFilter(filter.key);
                         }}
                         className="flex h-9 w-full items-center justify-between rounded-lg px-3 text-xs font-semibold text-white transition hover:bg-white/10"
                         style={{
@@ -924,7 +953,7 @@ export default function TablesCanvas({ items }) {
               </button>
               <button
                 type="button"
-                onClick={() => setIsAllExpanded((v) => !v)}
+                onClick={toggleAllNodeExpansion}
                 className={`inline-flex h-9 w-9 items-center justify-center rounded-full transition ${isAllExpanded ? "bg-[#d1b3ff]/30 text-[#d1b3ff]" : "bg-white/5 text-[#cbd5e1] hover:bg-white/15"}`}
                 title={isAllExpanded ? "طي كل الجداول" : "عرض كل حقول الجداول"}
               >

@@ -76,6 +76,7 @@ const collectionDomains = {
 
   wallets: "finance",
   transactions: "finance",
+  payment_intents: "finance",
 
   chats: "communication",
   messages: "communication",

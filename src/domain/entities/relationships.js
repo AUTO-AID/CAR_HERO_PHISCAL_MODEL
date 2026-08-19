@@ -1,5 +1,5 @@
 export const relationships = [
-  ["users", "vehicles", "User.vehicles / Vehicle.user", "A user owns many vehicles."],
+  ["users", "vehicles", "User.vehicles / Vehicle.owner", "A user owns many vehicles."],
   ["users", "user_subscriptions", "User.activeSubscription / UserSubscription.user", "A user can have a current subscription and a subscription history."],
   ["subscription_plans", "user_subscriptions", "UserSubscription.plan", "A subscription record points to the purchased plan."],
   ["providers", "services", "Provider.services / Service.provider", "A provider can offer provider-specific services."],
@@ -15,6 +15,8 @@ export const relationships = [
   ["users/providers", "wallets", "Wallet.ownerId + ownerType", "Wallet ownership is polymorphic."],
   ["users/providers", "transactions", "Transaction.ownerId + ownerType", "Transactions duplicate polymorphic owner data for fast queries."],
   ["orders/topups", "transactions", "Transaction.referenceType + referenceId", "Transactions can point to different business objects."],
+  ["users", "payment_intents", "PaymentIntent.userId", "Users initialize wallet top-up and order payment intents."],
+  ["orders", "payment_intents", "PaymentIntent.targetId", "Order payment intents can point to an order id when purpose is order_payment."],
   ["users", "notifications", "recipientId + recipientType", "Notifications use polymorphic recipients."],
   ["providers/admins", "notifications", "recipientId + recipientType", "Providers and admins can also receive notifications."],
   ["users", "reviews", "Review.user", "Users write reviews."],
@@ -52,6 +54,8 @@ export const diagramRelations = [
   ["users", "user_subscriptions", "subscriptions", "subscription"],
   ["subscription_plans", "user_subscriptions", "plan", "subscription"],
   ["wallets", "transactions", "logs", "finance"],
+  ["users", "payment_intents", "initializes", "finance"],
+  ["orders", "payment_intents", "paid by", "finance"],
   ["orders", "chats", "discussion", "communication"],
   ["chats", "messages", "contains", "communication"],
   ["users", "notifications", "receives", "communication"],
@@ -95,9 +99,10 @@ export const diagramPositions = {
   // Column 5: Finance & Admin
   wallets: { x: 1800, y: 0 },
   transactions: { x: 1800, y: 560 },
-  admins: { x: 1800, y: 1120 },
-  settings: { x: 1800, y: 1680 },
-  audit_logs: { x: 1800, y: 2240 },
+  payment_intents: { x: 1800, y: 1120 },
+  admins: { x: 1800, y: 1680 },
+  settings: { x: 1800, y: 2240 },
+  audit_logs: { x: 1800, y: 2800 },
 
   // Column 6: Auth, Extras & AI
   pending_registrations: { x: 2250, y: 0 },

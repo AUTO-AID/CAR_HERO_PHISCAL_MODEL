@@ -1,6 +1,6 @@
 import React from "react";
 import { ChevronDown, KeyRound, Link2, Search, Server } from "lucide-react";
-import { useDiagram } from "@/application/contexts/DiagramContext";
+import { useDiagram } from "@/application/contexts/diagram-context";
 import { getCollectionDomain, getDomainStyle } from "@/domain/entities/domains";
 
 const methodClasses = {

@@ -6,14 +6,7 @@ import { cleanType } from "@/infrastructure/services/schema.service";
 const INITIAL_COUNT = 7;
 
 export default function TableNode({ data }) {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-
-  // Sync with global expand/collapse state
-  React.useEffect(() => {
-    if (data.isAllExpanded !== undefined) {
-      setIsExpanded(data.isAllExpanded);
-    }
-  }, [data.isAllExpanded]);
+  const isExpanded = Boolean(data.isExpanded);
 
   const domainStyle = data.domainStyle || {
     label: "النظام",
@@ -85,7 +78,7 @@ export default function TableNode({ data }) {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            setIsExpanded((v) => !v);
+            data.onToggleExpanded?.(data.collection);
           }}
           className="flex w-full items-center justify-center gap-1 border-t border-white/5 bg-white/[0.02] py-1.5 text-[9px] font-bold uppercase tracking-wider text-white/30 transition hover:bg-white/5 hover:text-white/60"
         >
