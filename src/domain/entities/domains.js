@@ -48,7 +48,7 @@ export const domainStyles = {
     glow: "rgba(255, 59, 59, 0.28)",
   },
   ai: {
-    label: "الذكاء الاصطناعي",
+    label: "الذكاء التشغيلي",
     color: "#facc15",
     soft: "rgba(250, 204, 21, 0.14)",
     glow: "rgba(250, 204, 21, 0.28)",
@@ -89,8 +89,8 @@ const collectionDomains = {
   vehiclereminders: "vehicle",
   providers: "provider",
   audit_logs: "platform",
-  provider_metrics: "ai",
-  ai_recommendation_logs: "ai",
+  operational_alerts: "ai",
+  operational_recommendations: "ai",
 };
 
 const relationDomains = {

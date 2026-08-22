@@ -28,9 +28,11 @@ export const relationships = [
   ["users", "vehiclereminders", "VehicleReminder.user", "Reminders belong to a user."],
   ["users", "logouts", "Logout.userId", "Logout records are tied to users."],
   ["admins", "audit_logs", "AuditLog.admin", "Sensitive admin actions create immutable audit entries."],
-  ["users", "ai_recommendation_logs", "AiRecommendationLog.user", "A user can trigger recommendation requests that are logged."],
-  ["providers", "provider_metrics", "ProviderMetrics.provider", "A provider has a detailed metrics document for scoring."],
-  ["providers", "ai_recommendation_logs", "AiRecommendationLog.recommendations.provider", "Recommendation logs store which providers were recommended to users."],
+  ["operational_recommendations", "operational_alerts", "OperationalAlert.recommendation", "An alert can point to the recommendation raised from it."],
+  ["services", "operational_alerts", "OperationalAlert.service", "Alerts can be scoped to a specific service."],
+  ["providers", "operational_alerts", "OperationalAlert.provider", "Alerts can flag a specific overloaded or risky provider."],
+  ["services", "operational_recommendations", "OperationalRecommendation.service", "Recommendations can target a specific service."],
+  ["admins", "operational_recommendations", "OperationalRecommendation.assignedToAdmin / resolvedBy / notes.admin", "Admins are assigned recommendations, resolve them, and add notes."],
   ["users", "user_addresses", "UserAddress.userId", "Users have saved addresses for quick booking."],
   ["users", "user_payment_methods", "UserPaymentMethod.userId", "Users have saved payment methods."],
   ["users", "offers", "OfferRedemption.userId + offerId", "Users can redeem promotional offers."],
@@ -61,9 +63,11 @@ export const diagramRelations = [
   ["users", "notifications", "receives", "communication"],
   ["users", "logouts", "sessions", "auth"],
   ["admins", "audit_logs", "audits", "auth"],
-  ["providers", "provider_metrics", "metrics", "ai"],
-  ["users", "ai_recommendation_logs", "requests", "ai"],
-  ["providers", "ai_recommendation_logs", "logged in", "ai"],
+  ["operational_recommendations", "operational_alerts", "raises", "ai"],
+  ["services", "operational_alerts", "scoped to", "ai"],
+  ["providers", "operational_alerts", "flags", "ai"],
+  ["services", "operational_recommendations", "targets", "ai"],
+  ["admins", "operational_recommendations", "handles", "ai"],
   ["users", "user_addresses", "addresses", "order"],
   ["users", "user_payment_methods", "payments", "finance"],
   ["users", "offers", "redeems", "finance"],
@@ -104,10 +108,10 @@ export const diagramPositions = {
   settings: { x: 1800, y: 2240 },
   audit_logs: { x: 1800, y: 2800 },
 
-  // Column 6: Auth, Extras & AI
+  // Column 6: Auth, Extras & Operations Intelligence
   pending_registrations: { x: 2250, y: 0 },
-  provider_metrics: { x: 2250, y: 560 },
-  ai_recommendation_logs: { x: 2250, y: 1120 },
+  operational_alerts: { x: 2250, y: 560 },
+  operational_recommendations: { x: 2250, y: 1120 },
 
   // Column 7: Customer Experience
   user_addresses: { x: 0, y: 2240 },

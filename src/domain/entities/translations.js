@@ -12,7 +12,7 @@ export const featureArabic = {
   System: "النظام",
   Auth: "المصادقة",
   Admin: "الادارة",
-  "AI Recommendation": "الذكاء الاصطناعي",
+  "Operations Intelligence": "الذكاء التشغيلي",
 };
 
 export const collectionPurposeAr = {
@@ -37,8 +37,8 @@ export const collectionPurposeAr = {
   settings: "اعدادات عامة للنظام مثل وضع الصيانة والرسائل والقيم العامة التي يمكن جعلها عامة او خاصة.",
   pending_registrations: "تسجيلات مؤقتة قبل تأكيد رمز OTP، ويتم حذفها تلقائيا بعد مدة محددة.",
   logouts: "سجل عمليات تسجيل الخروج وتعطيل توكنات التحديث، ويستخدم للتتبع والامان.",
-  provider_metrics: "مقاييس وإحصائيات جودة أداء مزودي الخدمة التراكمية وتستخدم لحساب أوزان التوصية.",
-  ai_recommendation_logs: "سجل تدوين عمليات التوصية الذكية وحساب معايير المطابقة وتغذية نماذج التعلم الآلي.",
+  operational_alerts: "تنبيهات تشغيلية يرفعها محرك الذكاء التشغيلي عند ضغط الطلب أو تحميل المزود الزائد أو فجوة التغطية، مع الأدلة التي أطلقتها وحالة القراءة والمعالجة.",
+  operational_recommendations: "توصيات قابلة للتنفيذ لفريق العمليات: استقطاب مزودين، معالجة مخاطر مزود، سد فجوة تغطية، أو الاستجابة لقفزة طلب، مع مهلة SLA ومسؤول وسلسلة ملاحظات.",
 };
 
 export const collectionNotesAr = {};
@@ -310,7 +310,9 @@ export const relationshipArabic = {
   "users->vehiclereminders": "التذكيرات تعود الى مستخدم.",
   "users->logouts": "سجلات الخروج مرتبطة بالمستخدم.",
   "admins->audit_logs": "كل عملية حساسة يقوم بها المدير تسجل في سجل التدقيق.",
-  "users->ai_recommendation_logs": "المستخدم يطلب توصية ذكية وتسجل في سجلات الذكاء الاصطناعي.",
-  "providers->provider_metrics": "المزود يملك مستند مقاييس أداء إحصائي تراكمي.",
-  "providers->ai_recommendation_logs": "سجلات الترشيح تدون توصية المزود للمستخدمين.",
+  "operational_recommendations->operational_alerts": "التنبيه التشغيلي قد يشير إلى التوصية التي انبثقت عنه.",
+  "services->operational_alerts": "التنبيه قد يكون محصورا بخدمة معينة.",
+  "providers->operational_alerts": "التنبيه قد يشير إلى مزود محمل بأكثر من طاقته أو عالي المخاطر.",
+  "services->operational_recommendations": "التوصية قد تستهدف خدمة معينة.",
+  "admins->operational_recommendations": "المدراء يستلمون التوصيات ويعالجونها ويضيفون ملاحظاتهم عليها.",
 };
